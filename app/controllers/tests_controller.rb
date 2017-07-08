@@ -1,17 +1,19 @@
 class TestsController < ApplicationController
   def show
     @test = TestDefinition.find(params[:id])
-    
-    results = Result.order(:created_at => :desc).includes( :children, :run => [ :world ]).where(:test_definition_id => params[:id]).limit(200)
-    
+
+    results = Result.order(created_at: :desc)
+                    .includes(:children, run: [:world])
+                    .where(test_definition_id: params[:id])
+                    .limit(200)
+
     @results_hash = results.group_by { |r| r.run.target }
-    
   end
-  
+
   def history
     @test_definition_id = params[:id].to_i
-    @target = params[:target]
-    @histories = ResultHistory.find_for_recent_targets(:test_definition_id => @test_definition_id )
-    @test = @histories[@target].test_definition
+    @target             = params[:target]
+    @histories          = ResultHistory.find_for_recent_targets(test_definition_id: @test_definition_id)
+    @test               = @histories[@target].test_definition
   end
 end

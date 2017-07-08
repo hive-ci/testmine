@@ -1,13 +1,16 @@
 class RunsController < ApplicationController
   def show
-    @run = Run.includes(:top_level_results => [
+    @run = Run.includes(top_level_results: [
                           :test_definition,
-                          :children => [
+                          children: [
                             :test_definition,
-                            :children => [
+                            children: [
                               :test_definition,
-                              :children => [
+                              children: [
                                 :children
-                                ]]]]).find(params[:id])
+                              ]
+                            ]
+                          ]
+                        ]).find(params[:id])
   end
 end

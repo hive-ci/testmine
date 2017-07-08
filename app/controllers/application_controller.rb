@@ -4,14 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_user
-  
+
   private
 
   def current_user
     if request.headers['bbc.email_address']
       @current_user ||= User.find_or_create(
-        :name => request.headers['bbc.name'], 
-        :email => request.headers['bbc.email_address'] )
+        name: request.headers['bbc.name'],
+        email: request.headers['bbc.email_address']
+      )
     end
   end
 end
