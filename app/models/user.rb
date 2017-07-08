@@ -3,11 +3,11 @@ class User
   attr_accessor :email
 
   def initialize(args)
-    @name = args[:name]
+    @name  = args[:name]
     @email = args[:email]
   end
 
-  def self.find_or_create( args )
-    User.new( args )
+  def self.find_or_create(args)
+    User.new(args)
   end
 end

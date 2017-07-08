@@ -1,29 +1,27 @@
 Testmine::Application.routes.draw do
-  
   root 'suites#index'
-  get "suites" => 'suites#index'
-  get "suites/:id" => 'suites#show'
-  
-  get "runs/show"
-  get "worlds/show"
-  get "worlds/index"
-  get "worlds/search" => 'worlds#search'
+  get 'suites' => 'suites#index'
+  get 'suites/:id' => 'suites#show'
+
+  get 'runs/show'
+  get 'worlds/show'
+  get 'worlds/index'
+  get 'worlds/search' => 'worlds#search'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   get 'worlds' => 'worlds#index'
   get 'worlds/:id' => 'worlds#show'
   get 'worlds/:primary/:reference' => 'worlds#compare'
-  
+
   get 'aggregate/:world_id' => 'worlds#aggregate_group_element'
   get 'comparison/:primary/:reference' => 'worlds#comparison_group_element'
 
-  get 'runs/:id'   => 'runs#show'
-  get 'reliability/:suite'   => 'reliability#show'
-  
-  get 'oldtests/:id'  => 'tests#show'
-  get 'tests/:id'  => 'tests#history'
-  
+  get 'runs/:id' => 'runs#show'
+  get 'reliability/:suite' => 'reliability#show'
+
+  get 'oldtests/:id' => 'tests#show'
+  get 'tests/:id' => 'tests#history'
 
   get '/status' => 'api/v1/status#show'
 
