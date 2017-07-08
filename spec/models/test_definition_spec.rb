@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 describe TestDefinition do
-  describe "find_or_create" do
-
-    it "creates a test definition" do
-      
+  describe 'find_or_create' do
+    it 'creates a test definition' do
       test_definition = TestDefinition.find_or_create(
         name: 'Scanning item',
         node_type: 'Cucumber::Feature',
@@ -12,79 +10,72 @@ describe TestDefinition do
         file: 'items.feature',
         line: 1
       )
-      
+
       test_definition.name.should be_a String
       test_definition.node_type.should be_a String
       test_definition.description.should be_a String
       test_definition.file.should be_a String
-      test_definition.line.should be_a Fixnum
+      test_definition.line.should be_a Integer
     end
 
-    it "creates 2 definitions for a suite" do
-
+    it 'creates 2 definitions for a suite' do
       suite = Suite.find_or_create(
-          project:       'Titan',
-          name:          'Cucumber features',
-          runner:        'Ruby Cucumber',
-          description:   'Feature files for the Titan project',
-          documentation: "Long description of what's going on",
-          url:           'https://www.github.com/bbc-test',
-          repo:          'https://www.github.com/bbc-test/titan'
+        project:       'Titan',
+        name:          'Cucumber features',
+        runner:        'Ruby Cucumber',
+        description:   'Feature files for the Titan project',
+        documentation: "Long description of what's going on",
+        url:           'https://www.github.com/bbc-test',
+        repo:          'https://www.github.com/bbc-test/titan'
       )
 
       suite.add_test_definition(
-          name: 'Scanning item',
-          node_type: 'Cucumber::Feature',
-          description: 'Scanning an item',
-          file: 'items.feature',
-          line: 1
+        name: 'Scanning item',
+        node_type: 'Cucumber::Feature',
+        description: 'Scanning an item',
+        file: 'items.feature',
+        line: 1
       )
 
       suite.add_test_definition(
-          name: 'Showing total',
-          node_type: 'Cucumber::Feature',
-          description: 'Showing cart total',
-          file: 'items.feature',
-          line: 7
+        name: 'Showing total',
+        node_type: 'Cucumber::Feature',
+        description: 'Showing cart total',
+        file: 'items.feature',
+        line: 7
       )
 
       suite.tests.count.should == 2
-
     end
 
-    it "creates definition and sub-definition for a suite" do
-
+    it 'creates definition and sub-definition for a suite' do
       suite = Suite.find_or_create(
-          project:       'Titan',
-          name:          'Cucumber features',
-          runner:        'Ruby Cucumber',
+        project:       'Titan',
+        name:          'Cucumber features',
+        runner:        'Ruby Cucumber'
       )
 
       test = suite.add_test_definition(
-          name: 'Scanning things',
-          node_type: 'Cucumber::Scenario',
+        name: 'Scanning things',
+        node_type: 'Cucumber::Scenario'
       )
 
-      test.suite.name.should == "Cucumber features"
+      test.suite.name.should == 'Cucumber features'
 
       subtest = test.add_test_definition(
-          name: 'Given something',
-          node_type: 'Cucumber::Step',
+        name: 'Given something',
+        node_type: 'Cucumber::Step'
       )
 
       subtest = test.add_test_definition(
-          name: 'Then something',
-          node_type: 'Cucumber::Step',
+        name: 'Then something',
+        node_type: 'Cucumber::Step'
       )
 
-      subtest.parent.name.should == "Scanning things"
+      subtest.parent.name.should == 'Scanning things'
 
       suite.tests.count.should == 1
       suite.tests.first.children.count.should == 2
     end
-
-
-
-  end  
-
+  end
 end
