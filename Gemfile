@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.7'
 
+gem 'mysql2', '~> 0.4.6'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-sass'
@@ -10,11 +11,7 @@ gem 'thin'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'res', '~> 1.2'
-end
-
-group :production do
-  gem 'mysql2', '~> 0.3.20'
+  gem 'res', git: 'git@github.com:hive-ci/res.git'
 end
 
 # Use Uglifier as compressor for JavaScript assets
