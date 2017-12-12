@@ -4,3 +4,8 @@
 require File.expand_path('../config/application', __FILE__)
 
 Testmine::Application.load_tasks
+
+task :setup do
+  sh 'rake db:create'
+  sh 'rake db:migrate'
+end
